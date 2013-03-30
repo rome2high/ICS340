@@ -92,6 +92,7 @@ public class LayoutPanel extends JPanel{
 				}
 			}
 			treePanel.repaint();
+			inputField.setText(""); //added for faster testing (rmai)
 			inputField.requestFocus();
 		}
 	}

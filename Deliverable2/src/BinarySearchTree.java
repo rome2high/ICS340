@@ -1,3 +1,5 @@
+import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
+
 public class BinarySearchTree implements BinaryTreeADT {
 	protected  BTNode  root;
 	protected  int  size;
@@ -63,28 +65,28 @@ public class BinarySearchTree implements BinaryTreeADT {
 	}
 	
     	
-    	private boolean findNode(int e, TreeNodeWrapper p,
-	    		TreeNodeWrapper c) {
-	    p.set(root);
-	    c.set(root);
-	    if(isEmpty()) {
-	    	return false;
-	    }
-	    
-	    while(c.get() != null){
-	    	if(c.get().element()== e) {
-	    		return true;
-	    	}
-	    	else {
-	    		p.set(c.get());
-	        	if(e < c.get().element())
-	        		c.set(c.get().getLeft());
-	        	else
-	        		c.set(c.get().getRight());
-	        }
-	    }
-	    return false;
+	private boolean findNode(int e, TreeNodeWrapper p,
+    		TreeNodeWrapper c) {
+    p.set(root);
+    c.set(root);
+    if(isEmpty()) {
+    	return false;
+    }
+    
+    while(c.get() != null){
+    	if(c.get().element()== e) {
+    		return true;
     	}
+    	else {
+    		p.set(c.get());
+        	if(e < c.get().element())
+        		c.set(c.get().getLeft());
+        	else
+        		c.set(c.get().getRight());
+        }
+    }
+    return false;
+	}
 
 	public class TreeNodeWrapper {
 	    BTNode treeRef = null;
@@ -106,32 +108,33 @@ public class BinarySearchTree implements BinaryTreeADT {
 		return false;
 	}
 
-
-	
 	public void addNode(int e) { 
-	    BTNode n = new BTNode(e);
-    	    TreeNodeWrapper p = new TreeNodeWrapper();
-    	    TreeNodeWrapper c = new TreeNodeWrapper();	
-	    if(isEmpty()) { 
-	    	root = n; 
-	    }
-	    else{
-	    	findNode(e, p, c);
-	        if(e > p.get().element()) { 
-	        	p.get().setRight(n); 
-	        }
-	        else{
-	        	p.get().setLeft(n); 
-	        }
-	        n.setParent(p.get()); 
-	    }
-	    size = size + 1;   
+		BTNode n = new BTNode(e);
+			TreeNodeWrapper p = new TreeNodeWrapper();
+			TreeNodeWrapper c = new TreeNodeWrapper();	
+		if(isEmpty()) { 
+			root = n; 
+		}
+		else{
+			if(findNode(e, p, c))
+			{
+				System.out.println("Adding existing value not supported"); //not required
+			 return;
+			}
+			if(e > p.get().element()) { 
+				p.get().setRight(n); 
+			}
+			else{
+				p.get().setLeft(n); 
+			}
+			n.setParent(p.get()); 
+		}
+		size++;   
 	}
 
-		
 	public boolean delete(int e) {
 		TreeNodeWrapper p = new TreeNodeWrapper();
-		TreeNodeWrapper c = new TreeNodeWrapper();	
+		TreeNodeWrapper c = new TreeNodeWrapper();
 		boolean found = findNode(e, p, c);
 		if (found == false)
 			return false;
@@ -151,7 +154,7 @@ public class BinarySearchTree implements BinaryTreeADT {
 					root = root.getRight();
 				root.setParent(null);
 			} else if (p.get().getLeft() == c.get()) {
-				if (c.get().getLeft() != null) {				
+				if (c.get().getLeft() != null) {
 					p.get().setLeft(c.get().getLeft());
 					c.get().getLeft().setParent(p.get());
 				} else {
@@ -175,7 +178,7 @@ public class BinarySearchTree implements BinaryTreeADT {
 					nextLargest = largest;
 					largest = largest.getRight();
 				} 
-				c.get().setElement(largest.element); 
+				c.get().setElement(largest.element());
 				nextLargest.setRight(largest.getLeft()); 
 				if (largest.getLeft() != null)
 					largest.getLeft().setParent(nextLargest); 
