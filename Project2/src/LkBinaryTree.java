@@ -197,49 +197,47 @@ public class LkBinaryTree implements BinaryTreeADT {
 	public boolean deleteNode(int e) {    	
 	//Finish the rest of this code unit.
 		
+		BinaryTreeNode c = treeSearch(e, root()); //get current Node
 		
+		if(c == null){
+			return false;
+		} else if(isLeaf(c)) {		//case1
+			if(isRoot(c)){
+				root = null;
+			} else if(c.parent.right == c){
+				c.parent.right = null;
+			} else {
+				c.parent.left = null;
+			}
+		} else if(c.right == null){	//case2
+			if(isRoot(c)){
+				root.element = c.left.element;
+				if(root.right == c){
+					root.right = null;
+				} else {
+					root.left = null;
+				}
+			} else {
+				c.parent.left.element = c.left.element;
+				c.left = null;
+			}
+		} else {					//case3
+			BinaryTreeNode nl = c.left;		//next largest
+			BinaryTreeNode l = nl.right;		//largest
+			
+			while (l.right != null){
+				nl = l;
+				l = nl.right;
+			}
+			System.out.println(l.element);
+			c.element = l.element;
+			nl.right = l.left;
+		}
+		queue.deque();
+		size--;
 		return true;
 	}
 }
-
-//public boolean delete(int e) {
-//	TreeNodeWrapper p = new TreeNodeWrapper();
-//	TreeNodeWrapper c = new TreeNodeWrapper();
-//	boolean found = findNode(e, p, c);
-//	if (found == false)
-//		return false;
-//	if (c.get().getLeft() == null && c.get().getRight() == null) {
-//		if (c.get() == root)
-//			root = null;
-//		else if (p.get().getLeft() == c.get())
-//			p.get().setLeft(null);
-//		else
-//			p.get().setRight(null);
-//	} else if ((c.get().getLeft() != null && c.get().getRight() == null)
-//				|| (c.get().getRight() != null && c.get().getLeft() == null)) {
-//		if (c.get() == root) {
-//			if (root.getLeft() != null)
-//				root = root.getLeft();
-//			else
-//				root = root.getRight();
-//			root.setParent(null);
-//		} else if (p.get().getLeft() == c.get()) {
-//			if (c.get().getLeft() != null) {
-//				p.get().setLeft(c.get().getLeft());
-//				c.get().getLeft().setParent(p.get());
-//			} else {
-//				p.get().setLeft(c.get().getRight());
-//				c.get().getRight().setParent(p.get());
-//			}
-//		} else {  
-//			if (c.get().getLeft() != null) { 
-//				p.get().setRight(c.get().getLeft());
-//				c.get().getLeft().setParent(p.get());
-//			} else {
-//				p.get().setRight(c.get().getRight());
-//				c.get().getRight().setParent(p.get());
-//			}
-//		}
 //	} else {
 //		BTNode nextLargest = c.get().getLeft();
 //		BTNode largest = nextLargest.getRight();
@@ -270,3 +268,42 @@ public class LkBinaryTree implements BinaryTreeADT {
 //	size--;
 //	return true;
 //}
+
+//public boolean delete(int e) {
+//TreeNodeWrapper p = new TreeNodeWrapper();
+//TreeNodeWrapper c = new TreeNodeWrapper();
+//boolean found = findNode(e, p, c);
+//if (found == false)
+//	return false;
+//if (c.get().getLeft() == null && c.get().getRight() == null) {
+//	if (c.get() == root)
+//		root = null;
+//	else if (p.get().getLeft() == c.get())
+//		p.get().setLeft(null);
+//	else
+//		p.get().setRight(null);
+//} else if ((c.get().getLeft() != null && c.get().getRight() == null)
+//			|| (c.get().getRight() != null && c.get().getLeft() == null)) {
+//	if (c.get() == root) {
+//		if (root.getLeft() != null)
+//			root = root.getLeft();
+//		else
+//			root = root.getRight();
+//		root.setParent(null);
+//	} else if (p.get().getLeft() == c.get()) {
+//		if (c.get().getLeft() != null) {
+//			p.get().setLeft(c.get().getLeft());
+//			c.get().getLeft().setParent(p.get());
+//		} else {
+//			p.get().setLeft(c.get().getRight());
+//			c.get().getRight().setParent(p.get());
+//		}
+//	} else {  
+//		if (c.get().getLeft() != null) { 
+//			p.get().setRight(c.get().getLeft());
+//			c.get().getLeft().setParent(p.get());
+//		} else {
+//			p.get().setRight(c.get().getRight());
+//			c.get().getRight().setParent(p.get());
+//		}
+//	}
