@@ -70,7 +70,7 @@ public class LkBinaryTree implements BinaryTreeADT {
 		return (int)Math.pow(2.0, level);
 	}
 	
-   	 public void addNode(int e) {
+   	 public void addNode(char e) {
 		int nNodes, xInc, xCenter;
     		BinaryTreeNode n = new BinaryTreeNode(e);
 		queue.enque(n);
@@ -113,7 +113,7 @@ public class LkBinaryTree implements BinaryTreeADT {
 		return n;
     	}
 	
-   	 public boolean find(int e) {
+   	 public boolean find(char e) {
     		BinaryTreeNode n = treeSearch(e, root);
     		if(n == null)
     			return false;
@@ -224,12 +224,10 @@ public class LkBinaryTree implements BinaryTreeADT {
 		} else {					//case3
 			BinaryTreeNode nl = c.left;		//next largest
 			BinaryTreeNode l = nl.right;		//largest
-			
 			while (l.right != null){
 				nl = l;
 				l = nl.right;
 			}
-			System.out.println(l.element);
 			c.element = l.element;
 			nl.right = l.left;
 		}

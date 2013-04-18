@@ -10,8 +10,8 @@ public interface BinaryTreeADT {
 	public BinaryTreeNode left(BinaryTreeNode n);
 	public boolean hasRight(BinaryTreeNode n);
 	public BinaryTreeNode right(BinaryTreeNode n);
-	public void addNode(int e);
-	public boolean find(int e);
+	public void addNode(char e);
+	public boolean find(char e);
 	public void treeShape();
 	public void inOrderTravl();
 }

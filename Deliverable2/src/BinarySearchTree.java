@@ -1,5 +1,3 @@
-import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
-
 public class BinarySearchTree implements BinaryTreeADT {
 	protected  BTNode  root;
 	protected  int  size;

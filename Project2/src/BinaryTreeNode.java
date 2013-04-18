@@ -1,5 +1,7 @@
+
 public class BinaryTreeNode {
-	protected int element, level, xposition;
+	protected char element;
+	protected int level, xposition;
 	protected BinaryTreeNode left, right, parent;
 	
 	public BinaryTreeNode(){
@@ -11,7 +13,7 @@ public class BinaryTreeNode {
 		right = null;
 	}
 	
-	public BinaryTreeNode(int el){
+	public BinaryTreeNode(char el){
 		element = el;
 		level = 0;
 		xposition = 0;
@@ -20,11 +22,11 @@ public class BinaryTreeNode {
 		right = null;
 	}
 	
-	public int element(){
+	public char element(){
 		return element;
 	}
 	
-	public void setElement(int e){
+	public void setElement(char e){
 		element = e;
 	}
 	
